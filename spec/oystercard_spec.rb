@@ -19,7 +19,7 @@ end
 it 'can touch out' do
   subject.top_up(5)
   subject.touch_in("Aldgate")
-  subject.touch_out
+  subject.touch_out("Kings Cross")
   expect(subject).not_to be_in_journey
 end
 
@@ -32,8 +32,24 @@ end
 it 'must forget the entry station on touch out' do
   subject.top_up(5)
   subject.touch_in("Aldgate")
-  subject.touch_out
+  subject.touch_out("Kings Cross")
   expect(subject.entry_station).to eq nil
+end
+
+it 'must store trip information' do
+  subject.top_up(5)
+  subject.touch_in("Aldgate")
+  subject.touch_out("Kings Cross")
+  expect(subject.trip).to eq [{:entry_station => "Aldgate", :exit_station => "Kings Cross"}]
+end
+
+it 'must store all previous trips' do
+  subject.top_up(5)
+  subject.touch_in("Aldgate")
+  subject.touch_out("Kings Cross")
+  subject.touch_in("Old Street")
+  subject.touch_out("Bank")
+  expect(subject.trips).to eq [{:entry_station => "Aldgate", :exit_station => "Kings Cross"}, {:entry_station => "Old Street", :exit_station => "Bank"}]
 end
 
 # it 'must deduct the fare when touched out' do

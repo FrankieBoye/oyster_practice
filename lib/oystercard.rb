@@ -4,10 +4,14 @@ Fare = 1
 Minimum_balance = 1
 Maximum_balance = 90
 
-attr_reader :balance, :entry_station
+attr_reader :balance, :entry_station, :exit_station, :trip, :trips
 
 def initialize
   @balance = 0
+  @entry_station = entry_station
+  @exit_station = exit_station
+  @trip = []
+  @trips = []
 end
 
 def top_up(amount)
@@ -24,9 +28,13 @@ def touch_in(entry_station)
   fail "Insufficient balance to touch in" if @balance < Minimum_balance
 end
 
-def touch_out
+def touch_out(exit_station)
   Fare
+  @exit_station = exit_station
+  @trip << {:entry_station=>@entry_station, :exit_station=>@exit_station}
+  @trips << {:entry_station=>@entry_station, :exit_station=>@exit_station}
   @entry_station = nil
+
 end
 
 private
