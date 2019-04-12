@@ -29,6 +29,13 @@ it 'can save the entry station' do
   expect(subject.entry_station).to eq "Aldgate"
 end
 
+it 'must forget the entry station on touch out' do
+  subject.top_up(5)
+  subject.touch_in("Aldgate")
+  subject.touch_out
+  expect(subject.entry_station).to eq nil
+end
+
 # it 'must deduct the fare when touched out' do
 #   subject.top_up(5)
 #   subject.touch_in
