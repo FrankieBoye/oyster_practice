@@ -11,16 +11,21 @@ it 'should start not in journey' do
 end
 
 it 'can touch in' do
+  subject.top_up(5)
   subject.touch_in
   expect(subject).to be_in_journey
 end
 
 it 'can touch out' do
+  subject.top_up(5)
   subject.touch_in
   subject.touch_out
   expect(subject).not_to be_in_journey
 end
 
+it 'raises an error if the mimimum balance is not met' do
+  expect{ subject.touch_in }.to raise_error "Insufficient balance to touch in"
+end
 
 it 'must deduct the fare' do
   expect{ subject.fare 1 }.to change { subject.balance }.by -1
@@ -32,6 +37,6 @@ describe '#top_up' do
   it 'can add money to the balance' do
     expect{ subject.top_up 1 }.to change { subject.balance }.by 1
   end
-end
 
+  end
 end
