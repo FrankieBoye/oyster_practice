@@ -12,15 +12,21 @@ end
 
 it 'can touch in' do
   subject.top_up(5)
-  subject.touch_in
+  subject.touch_in("Aldgate")
   expect(subject).to be_in_journey
 end
 
 it 'can touch out' do
   subject.top_up(5)
-  subject.touch_in
+  subject.touch_in("Aldgate")
   subject.touch_out
   expect(subject).not_to be_in_journey
+end
+
+it 'can save the entry station' do
+  subject.top_up(5)
+  subject.touch_in("Aldgate")
+  expect(subject.entry_station).to eq "Aldgate"
 end
 
 # it 'must deduct the fare when touched out' do
@@ -32,7 +38,7 @@ end
 
 
 it 'raises an error if the mimimum balance is not met' do
-  expect{ subject.touch_in }.to raise_error "Insufficient balance to touch in"
+  expect{ subject.touch_in("Aldgate") }.to raise_error "Insufficient balance to touch in"
 end
 
 # it 'must deduct the fare' do

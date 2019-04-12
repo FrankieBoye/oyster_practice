@@ -4,7 +4,7 @@ Fare = 1
 Minimum_balance = 1
 Maximum_balance = 90
 
-attr_reader :balance, :in_journey
+attr_reader :balance, :in_journey, :entry_station
 
 def initialize
   @balance = 0
@@ -20,7 +20,8 @@ def in_journey?
  @in_journey
 end
 
-def touch_in
+def touch_in(entry_station)
+  @entry_station = entry_station
   fail "Insufficient balance to touch in" if @balance < Minimum_balance
   @in_journey = true
 end
