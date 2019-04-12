@@ -1,5 +1,6 @@
 class Oystercard
 
+Fare = 1
 Minimum_balance = 1
 Maximum_balance = 90
 
@@ -15,10 +16,6 @@ def top_up(amount)
   @balance += amount
 end
 
-def fare(amount)
-  @balance -= amount
-end
-
 def in_journey?
  @in_journey
 end
@@ -29,7 +26,13 @@ def touch_in
 end
 
 def touch_out
+  Fare
   @in_journey = false
+end
+
+private
+def fare(amount)
+  @balance -= amount
 end
 
 end

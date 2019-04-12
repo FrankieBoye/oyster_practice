@@ -23,13 +23,21 @@ it 'can touch out' do
   expect(subject).not_to be_in_journey
 end
 
+# it 'must deduct the fare when touched out' do
+#   subject.top_up(5)
+#   subject.touch_in
+#   subject.touch_out
+#   expect(subject.balance).to eq (4)
+# end
+
+
 it 'raises an error if the mimimum balance is not met' do
   expect{ subject.touch_in }.to raise_error "Insufficient balance to touch in"
 end
 
-it 'must deduct the fare' do
-  expect{ subject.fare 1 }.to change { subject.balance }.by -1
-end
+# it 'must deduct the fare' do
+#   expect{ subject.fare 1 }.to change { subject.balance }.by -1
+# end
 
 describe '#top_up' do
   it { is_expected.to respond_to(:top_up).with(1).argument }
